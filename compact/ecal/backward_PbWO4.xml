@@ -62,9 +62,24 @@
 
 
   </define>
-
+  <!-- Particle filter for optical photons -->
+  <filters>
+    <filter name="opticalphotons" type="ParticleSelectFilter">
+      <parameter name="particle" value="opticalphoton"/>
+    </filter>
+  </filters>
+  
   <detectors>
 
+    <sensitive_detector
+    name="EcalEndcapNOpticalSD"
+    type="CalorimeterSD"
+    readout="EcalEndcapNOpticalHits"
+    collection="EcalEndcapNOpticalHits"
+    material="leadtungsten_optical"
+    verbosity="0">
+    </sensitive_detector>
+    
     <documentation level="10">
       #### Backwards Endcap EM Calorimeter
     </documentation>
@@ -75,6 +90,7 @@
         readout="EcalEndcapNHits">
       <position x="0" y="0" z="-(EcalEndcapN_zmin + EcalEndcapN_envelope_length / 2.)"/>
       <rotation x="0" y="0." z="0"/>
+
       <placements>
         <disk_12surface
             rmin="EcalEndcapN_rmin"
@@ -141,13 +157,25 @@
             moduleshift="EcalEndcapN_crystalmodule_VM2000_thickness"
             gmaterial="Vacuum"
             vis="BlueVis"/>
-          <crystal
-            sizex="EcalEndcapN_crystalmodule_crystal_width"
-            sizey="EcalEndcapN_crystalmodule_crystal_width"
-            sizez="EcalEndcapN_crystalmodule_crystal_length"
-            material="leadtungsten_optical"
-            cryvis="GreenVis"/>
-          <wrapper
+  <crystal
+      sizex="EcalEndcapN_crystalmodule_crystal_width"
+      sizey="EcalEndcapN_crystalmodule_crystal_width"
+      sizez="EcalEndcapN_crystalmodule_crystal_length"
+      material="leadtungsten_optical"
+      cryvis="GreenVis"
+      type="scintillator">
+    <sensitive ref="EcalEndcapNHits"/>
+  </crystal>
+  <crystal
+      sizex="EcalEndcapN_crystalmodule_crystal_width"
+      sizey="EcalEndcapN_crystalmodule_crystal_width"
+      sizez="EcalEndcapN_crystalmodule_crystal_length"
+      material="leadtungsten_optical"
+      cryvis="GreenVis">
+    <sensitive ref="EcalEndcapNOpticalSD"/>
+  </crystal>
+
+  <wrapper
             carbonfiber_thickness="EcalEndcapN_crystalmodule_carbonfiber_thickness"
             carbonfiber_length="EcalEndcapN_crystalmodule_carbonfiber_length"
             VM2000_thickness="EcalEndcapN_crystalmodule_VM2000_thickness"
@@ -172,16 +200,35 @@
       </placements>
 
     </detector>
-
   </detectors>
 
+  <!-- ========================================================== -->
+  <!-- Optical photon setup (top-level) -->
+  <!-- ========================================================== -->
+
+
+
+
+  <!-- Physics extension for optical photons -->
+  <extensions>
+    <opticalphysics name="OpticalGammaPhys"/>
+  </extensions>
+
+  <!-- ========================================================== -->
+  <!-- Readouts -->
+  <!-- ========================================================== -->
   <readouts>
-    <comment>
-      No segmentation since module is the smallest readout segmentation
-    </comment>
     <readout name="EcalEndcapNHits">
       <segmentation type="NoSegmentation" key="sector"/>
       <id>system:8,sector:4,row:8,column:8</id>
     </readout>
+
+    <readout name="EcalEndcapNOpticalHits">
+      <segmentation type="NoSegmentation" key="sector"/>
+      <id>system:8,sector:4,row:8,column:8</id>
+      <quantity>opticalphotons</quantity>
+      <filter ref="opticalphotons"/>
+    </readout>
   </readouts>
+
 </lccdd>

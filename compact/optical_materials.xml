@@ -1000,6 +1000,34 @@
     </material>
     
     <!-- ================================================================== -->
+    <!-- Additional optical materials for SiPM simulation                   -->
+    <!-- ================================================================== -->
+
+    <!-- Fused silica window (common SiPM entrance window material) -->
+    <material name="SiliconDioxide_optical">
+      <D type="density" value="2.65" unit="g/cm3"/>
+      <composite n="1" ref="Si"/>
+      <composite n="2" ref="O"/>
+      <property name="RINDEX" coldim="2" values="
+        1.5*eV 1.46
+        3.5*eV 1.46"/>
+      <property name="ABSLENGTH" coldim="2" values="
+        1.5*eV 10*mm
+        3.5*eV 10*mm"/>
+    </material>
+
+    <!-- Silicon bulk for SiPM sensitive layer -->
+    <material name="SiPM_optical">
+      <D type="density" value="2.33" unit="g/cm3"/>
+      <composite n="1" ref="Si"/>
+      <property name="RINDEX" coldim="2" values="
+        1.5*eV 3.4
+        3.5*eV 3.4"/>
+      <property name="ABSLENGTH" coldim="2" values="
+        1.5*eV 10*um
+        3.5*eV 10*um"/>
+    </material>
+    <!-- ================================================================== -->
     <!-- Minimal optical properties for Lead Tungstate (PbWO4) crystals     -->
     <!-- ================================================================== -->
     <material name="leadtungsten_optical">

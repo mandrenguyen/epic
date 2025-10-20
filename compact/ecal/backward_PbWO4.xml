@@ -58,6 +58,8 @@
     </comment>
     <constant name="EcalEndcapN_IonCutout_dphi" value="30*degree"/>
 
+    <constant name="EcalEndcapN_Optical_ID" value="8010"/>
+
 
 
 
@@ -71,23 +73,127 @@
   
   <detectors>
 
-    <sensitive_detector
-    name="EcalEndcapNOpticalSD"
-    type="CalorimeterSD"
-    readout="EcalEndcapNOpticalHits"
-    collection="EcalEndcapNOpticalHits"
-    material="leadtungsten_optical"
-    verbosity="0">
-    </sensitive_detector>
-    
     <documentation level="10">
       #### Backwards Endcap EM Calorimeter
     </documentation>
+    <!--
     <detector
         id="EcalEndcapN_ID"
         name="EcalEndcapN"
         type="epic_HomogeneousCalorimeter"
         readout="EcalEndcapNHits">
+      <position x="0" y="0" z="-(EcalEndcapN_zmin + EcalEndcapN_envelope_length / 2.) - 0.1*mm"/>
+      <rotation x="0" y="0." z="0"/>
+
+      <placements>
+        <disk_12surface
+            rmin="EcalEndcapN_rmin"
+            rmax="EcalEndcapN_structure_Oring_min"
+            r12min="EcalEndcapN_structure_Oring_min"
+            r12max="EcalEndcapN_structure_Oring_max"
+            outerringlength="EcalEndcapN_structure_Oring_length"
+            modulelength="EcalEndcapN_crystalmodule_total_length"
+            envelope_length="EcalEndcapN_envelope_length"
+            protate="EcalEndcapN_Protate"
+            nrotate="EcalEndcapN_Nrotate"
+            outerringshift="EcalEndcapN_Oring_relative_shift"
+            inneradiusa="EcalEndcapN_Iring_axisA"
+            inneradiusb="EcalEndcapN_Iring_axisB"
+            envelope="true"
+            ringmaterial="StainlessSteelSAE304"
+            sector="1"
+            vis_struc="RPVis"
+            vis_steel_gap="InvisibleWithDaughters">
+
+          <comment>
+            A small `x_offset` here is set to avoid overlap with regular cell aligment.
+          </comment>
+          <inner_support
+              electron_r="63.13 * mm"
+              proton_r="32.73 * mm"
+              z_length="EcalEndcapN_inner_support_length"
+              x_offset="0 * mm"
+              proton_x_offset="67.75 * mm"
+              material="Copper"
+              vis="AnlOrange"
+              />
+
+          <comment>
+            The points information for constructing inner supporting structure [extrudedpolygon shape, 12 points in total]
+          </comment>
+          <points_extrudedpolygon>
+            <position x="2.5 * EcalEndcapN_crystalmodule_total_width" y="3.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="2.5 * EcalEndcapN_crystalmodule_total_width" y="2.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="4.5 * EcalEndcapN_crystalmodule_total_width" y="2.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="4.5 * EcalEndcapN_crystalmodule_total_width" y="1.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="5.5 * EcalEndcapN_crystalmodule_total_width" y="1.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="5.5 * EcalEndcapN_crystalmodule_total_width" y="-1.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="4.5 * EcalEndcapN_crystalmodule_total_width" y="-1.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="4.5 * EcalEndcapN_crystalmodule_total_width" y="-2.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="2.5 * EcalEndcapN_crystalmodule_total_width" y="-2.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="2.5 * EcalEndcapN_crystalmodule_total_width" y="-3.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="-2.5 * EcalEndcapN_crystalmodule_total_width" y="-3.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="-2.5 * EcalEndcapN_crystalmodule_total_width" y="-2.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="-3.5 * EcalEndcapN_crystalmodule_total_width" y="-2.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="-3.5 * EcalEndcapN_crystalmodule_total_width" y="2.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="-2.5 * EcalEndcapN_crystalmodule_total_width" y="2.5 * EcalEndcapN_crystalmodule_total_width"/>
+            <position x="-2.5 * EcalEndcapN_crystalmodule_total_width" y="3.5 * EcalEndcapN_crystalmodule_total_width"/>
+          </points_extrudedpolygon>
+
+          <placement
+            x_offset="0 * mm"
+            y_offset="0 * mm"
+            />
+          <module
+            modulex="EcalEndcapN_crystalmodule_total_width"
+            moduley="EcalEndcapN_crystalmodule_total_width"
+            modulez="EcalEndcapN_crystalmodule_crystal_length + EcalEndcapN_crystalmodule_VM2000_thickness + EcalEndcapN_crystalmodule_sensor_thickness + EcalEndcapN_crystalmodule_PCB_thickness"
+            moduleshift="EcalEndcapN_crystalmodule_VM2000_thickness"
+            gmaterial="Vacuum"
+            vis="BlueVis"/>
+      <crystal
+          sizex="EcalEndcapN_crystalmodule_crystal_width"
+          sizey="EcalEndcapN_crystalmodule_crystal_width"
+          sizez="EcalEndcapN_crystalmodule_crystal_length"
+          material="leadtungsten_optical"
+          cryvis="GreenVis"
+          type="scintillator">
+        <sensitive ref="EcalEndcapNHits"/>
+      </crystal>
+
+      
+  <wrapper
+            carbonfiber_thickness="EcalEndcapN_crystalmodule_carbonfiber_thickness"
+            carbonfiber_length="EcalEndcapN_crystalmodule_carbonfiber_length"
+            VM2000_thickness="EcalEndcapN_crystalmodule_VM2000_thickness"
+            material_carbon="CarbonFiber"
+            material_wrap="VM2000"
+            material_gap="Air"
+            vis_carbon="PurpleVis"
+            vis_wrap="RPVis"
+            vis_gap="AnlGray"/>
+          <readout
+            Sensor_sizex="EcalEndcapN_crystalmodule_sensor_sizeX"
+            Sensor_sizey="EcalEndcapN_crystalmodule_sensor_sizeY"
+            Sensor_thickness="EcalEndcapN_crystalmodule_sensor_thickness"
+            Sensor_space="EcalEndcapN_crystalmodule_sensor_spacing"
+            Nsensor_X="EcalEndcapN_crystalmodule_Nsensor_in_X"
+            Nsensor_Y="EcalEndcapN_crystalmodule_Nsensor_in_Y"
+            PCB_sizex="EcalEndcapN_crystalmodule_crystal_width"
+            PCB_sizey="EcalEndcapN_crystalmodule_crystal_width"
+            PCB_thickness="EcalEndcapN_crystalmodule_PCB_thickness"
+            material="SiliconDioxide"/>
+        </disk_12surface>
+      </placements>
+
+    </detector>
+    -->
+
+    <detector
+        id="EcalEndcapN_Optical_ID"
+        name="EcalEndcapN_Optical"
+        type="epic_HomogeneousCalorimeter"
+        readout="EcalEndcapNOpticalHits">
       <position x="0" y="0" z="-(EcalEndcapN_zmin + EcalEndcapN_envelope_length / 2.)"/>
       <rotation x="0" y="0." z="0"/>
 
@@ -158,22 +264,35 @@
             gmaterial="Vacuum"
             vis="BlueVis"/>
   <crystal
+      name="crystal_vol"
       sizex="EcalEndcapN_crystalmodule_crystal_width"
       sizey="EcalEndcapN_crystalmodule_crystal_width"
       sizez="EcalEndcapN_crystalmodule_crystal_length"
       material="leadtungsten_optical"
       cryvis="GreenVis"
       type="scintillator">
-    <sensitive ref="EcalEndcapNHits"/>
   </crystal>
-  <crystal
-      sizex="EcalEndcapN_crystalmodule_crystal_width"
-      sizey="EcalEndcapN_crystalmodule_crystal_width"
-      sizez="EcalEndcapN_crystalmodule_crystal_length"
-      material="leadtungsten_optical"
-      cryvis="GreenVis">
-    <sensitive ref="EcalEndcapNOpticalSD"/>
-  </crystal>
+  <!-- SiPM structure: optical window + silicon bulk -->
+  <SiPM
+      name="SiPM_window_vol"
+      sizex="EcalEndcapN_crystalmodule_sensor_sizeX"
+      sizey="EcalEndcapN_crystalmodule_sensor_sizeY"
+      sizez="0.2*mm"
+      z_offset="EcalEndcapN_crystalmodule_crystal_length/2 + 0.1*mm + EcalEndcapN_crystalmodule_VM2000_thickness"
+      material="SiliconDioxide_optical"
+      vis="CyanVis">
+  </SiPM>
+
+  <SiPM
+      name="SiPM_bulk_vol"
+      sizex="EcalEndcapN_crystalmodule_sensor_sizeX"
+      sizey="EcalEndcapN_crystalmodule_sensor_sizeY"
+      sizez="EcalEndcapN_crystalmodule_sensor_thickness - 0.2*mm"
+      z_offset="EcalEndcapN_crystalmodule_crystal_length/2 + EcalEndcapN_crystalmodule_sensor_thickness/2 + EcalEndcapN_crystalmodule_VM2000_thickness"
+      material="SiPM_optical"
+      vis="YellowVis">
+    <sensitive ref="EcalEndcapNOpticalHits"/>
+  </SiPM>
 
   <wrapper
             carbonfiber_thickness="EcalEndcapN_crystalmodule_carbonfiber_thickness"
@@ -200,13 +319,174 @@
       </placements>
 
     </detector>
+
+
   </detectors>
+
+  <!-- ========================================================== -->
+  <!-- PbWO4 (CRYTUR) optical material definition -->
+  <!-- ========================================================== -->
+  <material name="leadtungsten_optical">
+    <!--
+      Derived from BaseMaterialType::PWO in the C++ materials code.
+      Base definition (Pb, W, O composition, 10 g/cm³ density) originates from getBaseMaterial() in Materials.cc.
+      This XML extends it with Crytur-provided optical parameters (RINDEX, ABSLENGTH, and emission spectra).
+      Note: density adjusted to realistic 8.28 g/cm³; base Geant4 material had no optical properties.
+    -->
+    <D type="density" value="8.28" unit="g/cm3"/>
+    <composite n="1" ref="Pb"/>
+    <composite n="1" ref="W"/>
+    <composite n="4" ref="O"/>
+
+    <!-- Refractive index (placeholder constant). Replace with your n(λ) if available. -->
+    <property name="RINDEX" coldim="2" values="
+          1.55*eV 2.28
+          3.75758*eV 2.28
+    "/>
+
+    <!-- Emission spectrum (relative intensity) -->
+    <property name="SCINTILLATIONCOMPONENT1" coldim="2" values="
+          1.6917*eV 0
+          1.76355*eV 7.9e-05
+          1.7564*eV 0.000396266346779
+          1.7002*eV 0.002139838272608
+          1.64917*eV 0.004675942891996
+          1.57421*eV 0.006419514817825
+          1.53946*eV 0.007132794242028
+          1.5175*eV 0.007608313858163
+          1.48692*eV 0.007846073666231
+          1.4691*eV 0.007925326935587
+          1.44696*eV 0.007846073666231
+          1.40934*eV 0.00729130078074
+          1.37796*eV 0.006736527895249
+          1.33366*eV 0.005547728854911
+          1.28352*eV 0.004121170006505
+          1.2400*eV 0.003090877504879
+          1.1900*eV 0.002139838272608
+          1.1226*eV 0.001188799040338
+          1.0464*eV 0.000475519616135
+          0.9459*eV 0.000158506538712
+          0.8829*eV 4.7e-05
+          0.8479*eV 0
+    "/>
+    <property name="SCINTILLATIONCOMPONENT2" coldim="2" values="
+          1.6917*eV 0
+          1.76355*eV 7.9e-05
+          1.7564*eV 0.000396266346779
+          1.7002*eV 0.002139838272608
+          1.64917*eV 0.004675942891996
+          1.57421*eV 0.006419514817825
+          1.53946*eV 0.007132794242028
+          1.5175*eV 0.007608313858163
+          1.48692*eV 0.007846073666231
+          1.4691*eV 0.007925326935587
+          1.44696*eV 0.007846073666231
+          1.40934*eV 0.00729130078074
+          1.37796*eV 0.006736527895249
+          1.33366*eV 0.005547728854911
+          1.28352*eV 0.004121170006505
+          1.2400*eV 0.003090877504879
+          1.1900*eV 0.002139838272608
+          1.1226*eV 0.001188799040338
+          1.0464*eV 0.000475519616135
+          0.9459*eV 0.000158506538712
+          0.8829*eV 4.7e-05
+          0.8479*eV 0
+    "/>
+
+    <!-- Crytur transmittance (20 cm sample) converted to ABSLENGTH -->
+    <property name="ABSLENGTH" coldim="2" values="
+          3.75758*eV 1e-06*cm
+          3.64706*eV 4.81209*cm
+          3.54286*eV 9.8855*cm
+          3.44444*eV 25.3567*cm
+          3.35135*eV 46.1963*cm
+          3.26316*eV 63.3337*cm
+          3.17949*eV 69.9669*cm
+          3.1*eV 72.9826*cm
+          3.02439*eV 74.3457*cm
+          2.95238*eV 75.1867*cm
+          2.88372*eV 76.5235*cm
+          2.81818*eV 77.2227*cm
+          2.75556*eV 77.2191*cm
+          2.69565*eV 77.4719*cm
+          2.6383*eV 77.7426*cm
+          2.58333*eV 78.1167*cm
+          2.53061*eV 78.3139*cm
+          2.48*eV 78.4707*cm
+          2.43137*eV 78.7653*cm
+          2.38462*eV 78.8475*cm
+          2.33962*eV 78.8445*cm
+          2.2963*eV 78.9165*cm
+          2.25472*eV 78.9973*cm
+          2.21481*eV 79.1166*cm
+          2.17647*eV 79.1918*cm
+          2.13953*eV 79.2551*cm
+          2.1039*eV 79.3729*cm
+          2.06949*eV 79.4141*cm
+          2.03614*eV 79.5011*cm
+          2.00388*eV 79.6492*cm
+          1.9726*eV 79.6672*cm
+          1.94228*eV 79.7498*cm
+          1.91286*eV 79.9055*cm
+          1.88429*eV 79.8847*cm
+          1.85652*eV 79.9286*cm
+          1.82949*eV 80.0707*cm
+          1.80317*eV 80.152*cm
+          1.77751*eV 80.1915*cm
+          1.75247*eV 80.1883*cm
+          1.728*eV 80.2927*cm
+          1.7041*eV 80.3734*cm
+          1.68072*eV 80.283*cm
+          1.65789*eV 80.3241*cm
+          1.63559*eV 80.4867*cm
+          1.61379*eV 80.627*cm
+          1.59245*eV 80.425*cm
+          1.57158*eV 80.6448*cm
+          1.55116*eV 80.6845*cm
+          1.53115*eV 80.5699*cm
+          1.51149*eV 80.6984*cm
+          1.49224*eV 80.58*cm
+          1.47333*eV 80.7632*cm
+    "/>
+
+    <property name="RESOLUTIONSCALE" value="1.0"/>
+  </material>
+  <!--
+  <material name="leadtungsten_optical">
+    <D type="density" value="8.28" unit="g/cm3"/>
+    <composite n="1" ref="Pb"/>
+    <composite n="1" ref="W"/>
+    <composite n="4" ref="O"/>
+    <property name="RINDEX" coldim="2" values="1.55*eV 2.2 3.1*eV 2.2"/>
+    <property name="ABSLENGTH" coldim="2" values="1.55*eV 20*cm 3.1*eV 20*cm"/>
+    <property name="SCINTILLATIONCOMPONENT1" coldim="2" values="2.5*eV 1.0"/>
+    <property name="SCINTILLATIONCOMPONENT2" coldim="2" values="2.5*eV 1.0"/>
+    <property name="RESOLUTIONSCALE" value="1.0"/>
+  </material>
+  -->
 
   <!-- ========================================================== -->
   <!-- Optical photon setup (top-level) -->
   <!-- ========================================================== -->
 
+  <opticalsurfaces>
+    <opticalsurface name="SiPMSurface"
+                    model="unified"
+                    type="dielectric_metal"
+                    finish="polished">
+      <property name="REFLECTIVITY" coldim="2"
+                values="1.8*eV 0.05 3.5*eV 0.05"/>
+      <property name="EFFICIENCY" coldim="2"
+                values="1.8*eV 0.0 3.5*eV 0.0"/>
+      <!-- Set to 0: detect all photons in SiPM volumes; apply QE/PDE in digitization -->
+    </opticalsurface>
 
+    <bordersurface name="Crystal_to_SiPM"
+                   surface="SiPMSurface"
+                   vol1="crystal_vol"
+                   vol2="SiPM_bulk_vol"/>
+  </opticalsurfaces>
 
 
   <!-- Physics extension for optical photons -->
@@ -226,7 +506,6 @@
     <readout name="EcalEndcapNOpticalHits">
       <segmentation type="NoSegmentation" key="sector"/>
       <id>system:8,sector:4,row:8,column:8</id>
-      <quantity>opticalphotons</quantity>
       <filter ref="opticalphotons"/>
     </readout>
   </readouts>

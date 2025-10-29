@@ -1,12 +1,124 @@
 <!-- SPDX-License-Identifier: LGPL-3.0-or-later -->
 <!-- Copyright (C) 2022 Jihee Kim, Zhenyu Ye, Sylvester Joosten -->
 
-<materials>
-  <!--
-       Air by weight from
 
-       http://www.engineeringtoolbox.com/air-composition-24_212.html
-  -->
+<materials>
+  <!-- ===================================================================== -->
+  <!-- Optical materials for SiPM and its entrance window                    -->
+  <!-- ===================================================================== -->
+
+  <!-- Fused silica window (common SiPM entrance window material) -->
+  <material name="SiliconDioxide_optical">
+    <D type="density" value="2.65" unit="g/cm3"/>
+    <composite n="1" ref="Si"/>
+    <composite n="2" ref="O"/>
+    <property name="RINDEX" coldim="2" values="
+      1.5*eV 1.46
+      3.5*eV 1.46"/>
+    <property name="ABSLENGTH" coldim="2" values="
+      1.5*eV 10*mm
+      3.5*eV 10*mm"/>
+  </material>
+
+  <!-- Silicon bulk for SiPM sensitive layer -->
+  <material name="SiPM_Sensitive">
+    <D type="density" value="2.33" unit="g/cm3"/>
+    <composite n="1" ref="Si"/>
+    <property name="RINDEX" coldim="2" values="
+      1.5*eV 3.4
+      3.5*eV 3.4"/>
+    <property name="ABSLENGTH" coldim="2" values="
+      1.5*eV 10*um
+      3.5*eV 10*um"/>
+  </material>
+    <material name="VM2000">
+      <D type="density" value="1.43" unit="g / cm3"/>
+      <composite n="2" ref="C"/>
+      <composite n="2" ref="H"/>
+      <composite n="2" ref="F"/>
+      <property name="RINDEX" coldim="2" values="
+        1.776*eV  1.50
+        4.143*eV  1.50"/>
+      <property name="REFLECTIVITY" coldim="2"
+                values="1.776*eV  0.95                                                                                                                                                                                                         
+                        4.143*eV  0.95"/>
+    </material>
+  <!-- Crytur PbWO4 optical crystal definition -->
+<material name="leadtungsten_optical" formula="PbWO4" state="solid">
+  <D value="8.28*g/cm3"/>
+  <composite n="1" ref="Pb"/>
+  <composite n="1" ref="W"/>
+  <composite n="4" ref="O"/>
+
+  <property name="RINDEX" coldim="2" values="
+    1.50*eV 2.28
+    2.00*eV 2.30
+    2.50*eV 2.33
+    3.00*eV 2.36
+    3.50*eV 2.39
+    4.00*eV 2.42
+  "/>
+
+  <property name="ABSLENGTH" coldim="2" values="
+    1.50*eV 200.0*cm
+    2.00*eV 250.0*cm
+    2.50*eV 300.0*cm
+    3.00*eV 350.0*cm
+    3.50*eV 400.0*cm
+    4.00*eV 450.0*cm
+  "/>
+
+  <property name="RAYLEIGH" coldim="2" values="
+    1.50*eV 20.0*cm
+    2.00*eV 25.0*cm
+    2.50*eV 30.0*cm
+    3.00*eV 35.0*cm
+    3.50*eV 40.0*cm
+    4.00*eV 45.0*cm
+  "/>
+
+  <property name="SCINTILLATIONCOMPONENT1" coldim="2" values="
+    2.7*eV 0.10
+    2.8*eV 0.25
+    2.9*eV 0.50
+    3.0*eV 1.00
+    3.1*eV 0.80
+    3.2*eV 0.40
+  "/>
+
+  <property name="SCINTILLATIONYIELD1" value="200.0/MeV"/>
+  <property name="SCINTILLATIONTIMECONSTANT1" value="6.0*ns"/>
+  <property name="RESOLUTIONSCALE" value="1.0"/>
+  <property name="FASTSCINTILLATIONRISETIME" value="0.1*ns"/>
+
+  <property name="SCINTILLATIONCOMPONENT2" coldim="2" values="
+    2.8*eV 0.05
+    2.9*eV 0.20
+    3.0*eV 0.40
+    3.1*eV 0.25
+    3.2*eV 0.10
+  "/>
+  <property name="SCINTILLATIONYIELD2" value="50.0/MeV"/>
+  <property name="SCINTILLATIONTIMECONSTANT2" value="20.0*ns"/>
+
+  <property name="SCINTILLATIONYIELD" value="250.0/MeV"/>
+  <property name="SCINTILLATIONTIMECONSTANT" value="6.0*ns"/>
+
+  <property name="EMISSION" coldim="2" values="
+    2.6*eV 0.0
+    2.8*eV 0.5
+    3.0*eV 1.0
+    3.2*eV 0.6
+    3.4*eV 0.2
+  "/>
+
+  <property name="CERENKOVSPECTRUM" coldim="2" values="
+    2.0*eV 1.0
+    3.0*eV 1.0
+    4.0*eV 1.0
+  "/>
+  <property name="CerenkovThreshold" value="190*nm"/>
+</material>
   <material name="Air">
     <D type="density" unit="g/cm3" value="0.0012"/>
     <fraction n="0.754" ref="N"/>
